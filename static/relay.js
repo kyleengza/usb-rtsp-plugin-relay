@@ -325,4 +325,11 @@
       setTimeout(() => { btn.textContent = orig; btn.classList.remove("ok"); }, 1500);
     });
   });
+
+  // QR buttons — pop the shared modal from the core admin app.js
+  $$('.relays .qr-btn[data-qr-url]').forEach(btn => {
+    btn.addEventListener("click", () => {
+      window.showQrModal(btn.dataset.qrUrl, btn.dataset.qrLabel);
+    });
+  });
 })();
