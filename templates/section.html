@@ -13,13 +13,22 @@
   <article class="card{% if is_disabled %} input-disabled{% endif %}" data-relay="{{ s.name }}">
     <header>
       <h3>{{ s.name }}</h3>
-      <span class="ready-dot{% if live and live.ready %} ok{% elif live and live.readers and live.readers > 0 %} err{% endif %}" title="{% if live and live.ready %}pulling{% elif live and live.readers and live.readers > 0 %}upstream unreachable{% elif live %}idle (on-demand){% else %}no state{% endif %}" data-ready></span>
+      {% if live and live.ready %}
+        <span class="cam-status ok">({{ live.readers or 0 }} viewer{% if live.readers != 1 %}s{% endif %})</span>
+      {% elif live and live.readers and live.readers > 0 %}
+        <span class="cam-status err">(upstream unreachable)</span>
+      {% elif live %}
+        <span class="cam-status">(idle)</span>
+      {% else %}
+        <span class="cam-status">(no state)</span>
+      {% endif %}
       <label class="switch" title="enable / disable {{ s.name }}">
         <input type="checkbox" data-input-toggle="relay/{{ s.name }}" {% if not is_disabled %}checked{% endif %}>
         <span class="slider"></span>
       </label>
       <div class="card-tabs">
         <button type="button" class="card-tab" data-act="preview">Live preview ▾</button>
+        <button type="button" class="card-tab" data-act="urls">URLs ▾</button>
         <button type="button" class="card-tab" data-act="settings">Settings ▾</button>
         <button type="button" class="card-tab" data-act="delete-relay">Remove</button>
       </div>
@@ -39,6 +48,7 @@
     {% set webrtc_url = webrtc_pre ~ host ~ webrtc_suf %}
     {% set hls_url    = hls_pre    ~ host ~ hls_suf    %}
     {% set rtsp_url   = rtsp_pre   ~ host ~ rtsp_suf   %}
+    <div class="urls-wrap" hidden>
     <ul class="urls">
       <li class="url-row" data-url-pre="{{ webrtc_pre }}" data-url-suf="{{ webrtc_suf }}">
         <span class="url-label url-best">WebRTC</span>
@@ -60,6 +70,7 @@
         <button type="button" class="qr-btn" data-qr-url="{{ rtsp_url }}" data-qr-label="RTSP">QR</button>
       </li>
     </ul>
+    </div>
     <div class="meta">
       <div class="device">
         upstream: <code>{{ s.url }}</code>

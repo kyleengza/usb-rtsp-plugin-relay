@@ -126,6 +126,20 @@
     });
   });
 
+  // Per-card URLs tab — folds the WebRTC/HLS/RTSP URL list (mirrors
+  // the cameras section).
+  $$('.card[data-relay] [data-act=urls]').forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest("[data-relay]");
+      const wrap = $(".urls-wrap", card);
+      if (!wrap) return;
+      const isOpen = !wrap.hidden;
+      wrap.hidden = isOpen;
+      btn.classList.toggle("open", !isOpen);
+      btn.textContent = isOpen ? "URLs ▾" : "Hide URLs ▴";
+    });
+  });
+
   // Per-card form: PATCH /api/relay/sources/{name}.
   // The PATCH endpoint treats omitted fields as "keep current" (it skips
   // anything that's None on the model), so we omit empty optional fields
