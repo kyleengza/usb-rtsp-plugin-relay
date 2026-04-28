@@ -28,7 +28,7 @@
       <div class="preview-controls">
         <button type="button" class="copy" data-act="preview-reconnect">Reconnect</button>
       </div>
-      <iframe data-preview-frame loading="lazy" allow="autoplay" allowfullscreen></iframe>
+      <iframe data-preview-frame loading="lazy" allow="autoplay 'src'" allowfullscreen></iframe>
     </div>
     {% set webrtc_pre = 'http://' ~ creds_at %}
     {% set webrtc_suf = ':8889/' ~ s.name ~ '/' %}

@@ -227,7 +227,7 @@
     const fresh = document.createElement("iframe");
     fresh.setAttribute("data-preview-frame", "");
     fresh.setAttribute("loading", "lazy");
-    fresh.setAttribute("allow", "autoplay");
+    fresh.setAttribute("allow", "autoplay 'src'");
     fresh.setAttribute("allowfullscreen", "");
     fresh.src = `/preview/${encodeURIComponent(name)}/?t=${Date.now()}`;
     if (old) old.replaceWith(fresh); else wrap.appendChild(fresh);
