@@ -14,13 +14,13 @@
     <header>
       <h3>{{ s.name }}</h3>
       {% if live and live.ready %}
-        <span class="cam-status ok">({{ live.readers or 0 }} viewer{% if live.readers != 1 %}s{% endif %})</span>
+        <span class="cam-status ok">{{ live.readers or 0 }} viewer{% if live.readers != 1 %}s{% endif %}</span>
       {% elif live and live.readers and live.readers > 0 %}
-        <span class="cam-status err">(upstream unreachable)</span>
+        <span class="cam-status err">upstream unreachable</span>
       {% elif live %}
-        <span class="cam-status">(idle)</span>
+        <span class="cam-status">idle</span>
       {% else %}
-        <span class="cam-status">(no state)</span>
+        <span class="cam-status">no state</span>
       {% endif %}
       <label class="switch" title="enable / disable {{ s.name }}">
         <input type="checkbox" data-input-toggle="relay/{{ s.name }}" {% if not is_disabled %}checked{% endif %}>
